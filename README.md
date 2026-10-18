@@ -174,8 +174,8 @@ profiles.
 
 ## 3. A formal definition
 
-Maths renders on GitHub. If you are reading a plain-text copy, the same content is in
-[paper/Informational_Spectra.docx](paper/Informational_Spectra.docx).
+The equations below are rendered as scalable images, with copyable LaTeX source beneath each one.
+The same definitions are in [paper/Informational_Spectra.docx](paper/Informational_Spectra.docx).
 
 ### 3.1 Transformation bands
 
@@ -184,17 +184,37 @@ transformations. They may be repeated applications of one diffusion, different n
 progressively stronger corruptions, or a controlled family of measurement operators. Define a chain of
 states and, when subtraction is meaningful, residue signals:
 
-$$
+<p align="center">
+  <img src="figures/equations/transformation-chain-light.svg#gh-light-mode-only" alt="Equation 1: Z_0 = X; Z_(k+1) = P_k(Z_k); R_k = Z_k - Z_(k+1)." width="229">
+  <img src="figures/equations/transformation-chain-dark.svg#gh-dark-mode-only" alt="Equation 1: Z_0 = X; Z_(k+1) = P_k(Z_k); R_k = Z_k - Z_(k+1)." width="229">
+</p>
+
+<details>
+<summary>Equation 1 — LaTeX source</summary>
+
+```latex
 Z_0 = X, \qquad Z_{k+1} = P_k(Z_k), \qquad R_k = Z_k - Z_{k+1}
 \tag{1}
-$$
+```
+
+</details>
 
 The residue identity is algebraic:
 
-$$
+<p align="center">
+  <img src="figures/equations/residue-reconstruction-light.svg#gh-light-mode-only" alt="Equation 2: X = Z_K + the sum of R_k for k = 0 to K - 1." width="229">
+  <img src="figures/equations/residue-reconstruction-dark.svg#gh-dark-mode-only" alt="Equation 2: X = Z_K + the sum of R_k for k = 0 to K - 1." width="229">
+</p>
+
+<details>
+<summary>Equation 2 — LaTeX source</summary>
+
+```latex
 X = Z_K + \sum_{k=0}^{K-1} R_k
 \tag{2}
-$$
+```
+
+</details>
 
 Equation 2 guarantees reconstruction if every band is kept. It says nothing about meaning. Meaning
 enters only after choosing a **target** $Y$: a label, future event, identity, control objective,
@@ -204,18 +224,38 @@ scientific quantity, or any question whose answer matters.
 
 The information removed by transformation step $k$ is
 
-$$
+<p align="center">
+  <img src="figures/equations/task-information-light.svg#gh-light-mode-only" alt="Equation 3: S_k(Y; P) = I(Y; Z_k given Z_(k+1)) = I(Y; Z_k) - I(Y; Z_(k+1))." width="356">
+  <img src="figures/equations/task-information-dark.svg#gh-dark-mode-only" alt="Equation 3: S_k(Y; P) = I(Y; Z_k given Z_(k+1)) = I(Y; Z_k) - I(Y; Z_(k+1))." width="356">
+</p>
+
+<details>
+<summary>Equation 3 — LaTeX source</summary>
+
+```latex
 S_k(Y;P) \;=\; I\!\left(Y;\, Z_k \mid Z_{k+1}\right) \;=\; I(Y;Z_k) - I(Y;Z_{k+1})
 \tag{3}
-$$
+```
+
+</details>
 
 The equality holds because each next state is a deterministic function of the preceding one. Each band
 is nonnegative by the data-processing inequality, and the bands telescope:
 
-$$
+<p align="center">
+  <img src="figures/equations/information-telescope-light.svg#gh-light-mode-only" alt="Equation 4: The sum of S_k(Y; P), k = 0 to K - 1, equals I(Y; X) - I(Y; Z_K)." width="383">
+  <img src="figures/equations/information-telescope-dark.svg#gh-dark-mode-only" alt="Equation 4: The sum of S_k(Y; P), k = 0 to K - 1, equals I(Y; X) - I(Y; Z_K)." width="383">
+</p>
+
+<details>
+<summary>Equation 4 — LaTeX source</summary>
+
+```latex
 \sum_{k=0}^{K-1} S_k(Y;P) \;=\; I(Y;X) - I(Y;Z_K)
 \tag{4}
-$$
+```
+
+</details>
 
 **Equation 3 is the core proposal.** It turns an ordered transformation into a distribution of task
 information over persistence scales. A peak means one step removes a large share of the distinctions
@@ -239,10 +279,20 @@ kept apart:
 For a reader family $\mathcal{R}$ and task loss $L_Y$, the accessible contribution of band $k$ is the
 performance lost by advancing from $Z_k$ to $Z_{k+1}$:
 
-$$
+<p align="center">
+  <img src="figures/equations/readability-light.svg#gh-light-mode-only" alt="Equation 5: A_k(Y; R) = L_Y(R*_(k+1)(Z_(k+1))) - L_Y(R*_k(Z_k))." width="321">
+  <img src="figures/equations/readability-dark.svg#gh-dark-mode-only" alt="Equation 5: A_k(Y; R) = L_Y(R*_(k+1)(Z_(k+1))) - L_Y(R*_k(Z_k))." width="321">
+</p>
+
+<details>
+<summary>Equation 5 — LaTeX source</summary>
+
+```latex
 A_k(Y;\mathcal{R}) \;=\; L_Y\!\left(\mathcal{R}^{*}_{k+1}(Z_{k+1})\right) - L_Y\!\left(\mathcal{R}^{*}_{k}(Z_{k})\right)
 \tag{5}
-$$
+```
+
+</details>
 
 Each $\mathcal{R}^{*}$ is trained under the **same capacity and data budget**. Positive $A_k$ means the
 best matched reader got worse after the band was removed. With a fixed, mismatched reader the quantity
@@ -251,9 +301,19 @@ can be negative or nonmonotonic, and that behaviour is itself evidence about *ex
 
 Writability is the desired task change divided by the collateral change in protected variables:
 
-$$
+<p align="center">
+  <img src="figures/equations/writability-light.svg#gh-light-mode-only" alt="W_k = desired change in Y-information at band k divided by collateral change in protected variables." width="432">
+  <img src="figures/equations/writability-dark.svg#gh-dark-mode-only" alt="W_k = desired change in Y-information at band k divided by collateral change in protected variables." width="432">
+</p>
+
+<details>
+<summary>Writability — LaTeX source</summary>
+
+```latex
 W_k \;=\; \frac{\text{desired change in } Y\text{-information at band } k}{\text{collateral change in protected variables}}
-$$
+```
+
+</details>
 
 The earlier project phrase "persistence × writability × readability" is best read as **three measured
 axes, not a literal scalar product**.
@@ -262,9 +322,19 @@ axes, not a literal scalar product**.
 
 If $P$ is linear with eigenvectors $v_i$ and eigenvalues $\lambda_i$, repeated application gives
 
-$$
+<p align="center">
+  <img src="figures/equations/linear-persistence-light.svg#gh-light-mode-only" alt="P^t v_i = lambda_i^t v_i." width="117">
+  <img src="figures/equations/linear-persistence-dark.svg#gh-dark-mode-only" alt="P^t v_i = lambda_i^t v_i." width="117">
+</p>
+
+<details>
+<summary>Linear persistence — LaTeX source</summary>
+
+```latex
 P^{t} v_i = \lambda_i^{\,t}\, v_i
-$$
+```
+
+</details>
 
 Modes with $|\lambda_i|$ near one are slow and long-lived; smaller ones vanish quickly. This is the
 familiar bridge to frequency. For nonlinear or state-dependent operators, local Jacobians, empirical
@@ -278,9 +348,19 @@ language-model subspace can be prompt-wide without being locally smoother than i
 
 The old intuition becomes a testable **polarization hypothesis**. With the normalized mass
 
-$$
+<p align="center">
+  <img src="figures/equations/normalized-mass-light.svg#gh-light-mode-only" alt="p_k = S_k divided by the sum of S_j over j." width="126">
+  <img src="figures/equations/normalized-mass-dark.svg#gh-dark-mode-only" alt="p_k = S_k divided by the sum of S_j over j." width="126">
+</p>
+
+<details>
+<summary>Normalized mass — LaTeX source</summary>
+
+```latex
 p_k \;=\; \frac{S_k}{\sum_j S_j}
-$$
+```
+
+</details>
 
 for some learned operators and ecological tasks, $p_k$ may concentrate near long-lived anchors and
 short-lived corrections, leaving little task information at intermediate scales. That is plausible,
@@ -502,3 +582,4 @@ testing.
 ## License
 
 MIT, see [LICENSE](LICENSE).
+
